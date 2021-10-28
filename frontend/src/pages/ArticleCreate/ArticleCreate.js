@@ -13,11 +13,11 @@ function ArticleCreate() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [regions, setRegions] = useState([]);
-  const [authors, setAuthors] = useState([]);
+  const [author, setAuthor] = useState([]);
 
   const handleSave = async () => {
-    console.log("PARAM == ", title, content, regions, authors);
-    const payload = { title, content, regions, authors };
+    const authorId = author.id;
+    const payload = { title, content, regions, authorId };
     await createArticle(payload);
     history.push(ROUTE_ARTICLE_LIST);
   };
@@ -45,19 +45,18 @@ function ArticleCreate() {
             onChange={(event) => setContent(event.target.value)}
           />
         </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Authors</Form.Label>
-          <AuthorDropdown
-            value={authors}
-            onChange={(authors) => setAuthors(authors)}
-          />
-        </Form.Group>
         <Form.Group>
           <Form.Label>Regions</Form.Label>
           <RegionDropdown
             value={regions}
             onChange={(regions) => setRegions(regions)}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>author</Form.Label>
+          <AuthorDropdown
+            value={author}
+            onChange={(author) => setAuthor(author)}
           />
         </Form.Group>
 

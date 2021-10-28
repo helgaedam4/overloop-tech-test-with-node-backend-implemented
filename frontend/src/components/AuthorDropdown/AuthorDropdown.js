@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import Multiselect from 'react-widgets/lib/Multiselect'
+import Combobox from "react-widgets/lib/Combobox";
 
 import { listAuthors } from '../../services/authors';
 
 function AuthorDropdown({ value, onChange }) {
-    const [authors, setAuthors] = useState([]);
+  const [authors, setAuthors] = useState([]);
 
-    useEffect(() => {
-        const fetchAuthors = async () => {
-            const data = await listAuthors();
-            setAuthors(data);
-        };
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      const data = await listAuthors();
+      setAuthors(data);
+    };
 
-        fetchAuthors();
-    }, []);
+    fetchAuthors();
+  }, []);
 
-    return (
-        <div className="AuthorDropdown">
-            <Multiselect
-                value={ value }
-                data={ authors }
-                textField="lastName"
-                valueField="id"
-                onChange={ onChange }
-                allowCreate={ false }
-            />
-        </div>
-    );
+  return (
+    <div className="AuthorDropdown">
+      <Combobox
+        value={value}
+        data={authors}
+        dataKey="id"
+        textField={(item) =>
+          item && (item.firstName || item.lastName)
+            ? `${item.firstName} ${item.lastName}`
+            : ""
+        }
+        onChange={onChange}
+      />
+    </div>
+  );
 }
 
 export default AuthorDropdown;

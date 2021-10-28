@@ -11,6 +11,7 @@ function ArticleList() {
     useEffect(() => {
         const fetchArticles = async () => {
             const data = await listArticles();
+            console.log('LIST ARTICLE DATA = ', data)
             setArticles(data);
         };
 
@@ -26,7 +27,9 @@ function ArticleList() {
               <Link to={`${ROUTE_ARTICLE_PREFIX}/${id}`}>{title}</Link>
             </td>
             <td>
-              <Link to={`${ROUTE_ARTICLE_PREFIX}/${id}`}>{author}</Link>
+              <Link
+                to={`${ROUTE_ARTICLE_PREFIX}/${id}`}
+              >{author && `${author.firstName} ${author.lastName}`}</Link>
             </td>
           </tr>
         );
